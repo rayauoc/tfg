@@ -11,24 +11,51 @@
 
 <tw-story></tw-story>
 
-<tw-storydata name="Destino Forjado" startnode="1" creator="Twine" creator-version="2.3.9" ifid="5FDC2DDA-3FD3-43E4-A625-CC08A10D7813" zoom="1" format="Harlowe" format-version="3.1.0" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">@import url(http://fonts.googleapis.com/css?family=Indie+Flower);
+<tw-storydata name="Destino Forjado" startnode="1" creator="Twine" creator-version="2.3.9" ifid="5FDC2DDA-3FD3-43E4-A625-CC08A10D7813" zoom="1" format="Harlowe" format-version="3.1.0" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">@import url(https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@100&display=swap);
+/*@import url(https://fonts.googleapis.com/icon?family=Material+Icons);*/
 /* 
 	FUENTES: Shadows+Into+Light / Righteous / East+Sea+Dokdo / Homemade+Apple 		/ Yeon+Sung / Indie+Flower / Dancing+Script / Pacifico / Caveat /             Permanent+Marker / Kaushan+Script / 
-
+	
+	http://fonts.googleapis.com/css?family=Indie+Flower
 */
 /* No mostrar enlaces adelante y atras */
 tw-sidebar tw-icon.redo {
- display: none;
+  display: none;
 }
-
 tw-sidebar tw-icon.undo {
- display: none;
+  display: none;
 }
 
 
 /* Color enlaces */
 tw-link {
-color: blue;
+  color: black;
+}
+
+/* Fondo modales */
+tw-dialog {
+  background-color: #c17b24;
+  color: black;
+  border: black solid 2px;
+}
+
+/*
+  Reposition the Sidebar 'footer' tagged passage.
+*/
+tw-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20%; /* padding-right of the tw-story element. */
+  max-height: 100%;
+  margin-top: 5%; /* padding-top of the tw-story element. */
+  padding: 0 0.5em 0.5em 0.5em;
+  text-align: right;
+  background-color: transparent;
+}
+tw-icon {
+  text-align: right;
+  padding-right: 0.75em;
 }
 
 /* Fondo de iconos adelante y atras */
@@ -39,9 +66,11 @@ color: blue;
 
 /* Fondo de imagen general */
 tw-story {
-  background-image:url(https://i.ibb.co/LrXQsqS/31246-pergamino-monta-a.jpg);
+  background-image:url(https://i.ibb.co/6B3KQGc/31246-pergamino-monta-a.jpg);
  /*background-image:url(https://image.freepik.com/foto-gratis/mapa-mundo-vintage_163782-2564.jpghttps://image.freepik.com/foto-gratis/viejo-fondo-textura-papel_1232-1932.jpg);*/
  background-size:cover;
+  max-width: 100%;
+height: auto;
 }
 
 /* Fondo de imagen de la etiqueta papper */
@@ -50,11 +79,20 @@ tw-story[tags~="papper"] {
  background-size:cover;
 }
 
+tw-include {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: initial;
+}
+
 /* Color letra pasajes */
 tw-passage {
   color: black;
   font-family: Indie Flower;
-  font-size: 36px;
+  font-size: 30px;
+  border-left: 1px solid #333;
+  padding-left: 1.5em;
 }
 
 /* Color lineas separadoras */
@@ -67,23 +105,71 @@ tw-passage hr {
 	border-color: green;
 }
 
+/* HEALTH BAR*/
+#health-bar {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	width: 200px;
+	height: 20px;
+	padding: 5px;
+  /* #2c2c2c  #ddd */
+	background: #2c2c2c;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	position: relative;
+}
+.bar {
+	background: #c54;
+	width: 100%;
+	height: 10px;
+	position: relative;
+	transition: width .5s linear;
+}
 
-</style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-tag name="papper" color="gray"></tw-tag><tw-passagedata pid="1" name="Start" tags="no-header no-footer" position="145,55" size="100,100">(set: $preguntaAldeanos to false)
+tw-include[title="Update Health Bar"] {
+	display: none;
+}
+
+img.responsive { max-width: 100%; height: auto; }
+</style><script role="script" id="twine-user-script" type="text/twine-javascript">/* Create an unique private namespace to contain custom code. */
+if (!window.DF) {
+	window.DF = {};
+}
+
+/* Update Heath Bar elements. */
+window.DF.updateHeathBar = function (maxHealth, health) {
+	var
+		outer = $('#health-bar'),
+		inner = outer.find('.bar'),
+		barWidth = (health / maxHealth) * 100;
+
+	outer.data('total', maxHealth);
+	outer.data('value', health);
+	inner.css('width', barWidth + "%");
+};</script><tw-tag name="papper" color="gray"></tw-tag><tw-passagedata pid="1" name="Start" tags="no-header no-footer" position="55,52" size="100,100">(set: $maxHealth to 100)
+(set: $health to $maxHealth)
+
+(go-to: &quot;Menu&quot;)</tw-passagedata><tw-passagedata pid="2" name="Variables" tags="" position="60,704" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="3" name="historia" tags="" position="63,591" size="100,100">&lt;!-- The following health change will automatically be applied to the Health Bar due to the footer tagged passage. --&gt;
+
+(set: $health to it - 10)
+
+
+(link: &quot;Do some Damage&quot;)[
+	&lt;!-- This health change will be applied after the link is selected, it uses an manual invokation of the footer tagged passage to cause the current Health Bar to visually be updated. --&gt;
+	(set: $health to 40)
+	(display: &quot;Update Health Bar&quot;)</tw-passagedata><tw-passagedata pid="4" name="Prologo1" tags="" position="342,55" size="100,100">{(set: $martillo to false)
+(set: $tinaja to false)
+(set: $preguntaAldeanos to false)
 (set: $ayudaAldeanos to false)
 (set: $ropajesQuemados to false)
 (set: $registrarHerreria to false)
 (set: $preguntaRopajes to false)
-
-&lt;==&gt;
-Este es el comienzo de una historia que no podrás encontrar en libros ni manuescritos, una historia que todos han oido pero ninguno ha vivido. Todos salvo tú.
-
-=&gt;&lt;=
-
-[[Continuar|Menu]]
-
-</tw-passagedata><tw-passagedata pid="2" name="Variables" tags="" position="471,610" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="3" name="Martillo Cargado" tags="" position="64,594" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="4" name="historia" tags="" position="301,574" size="100,100">Esta es la continuación</tw-passagedata><tw-passagedata pid="5" name="Prologo1" tags="" position="341,57" size="100,100">(set:$martillo to false)
-(set:$tinaja to false)
-
+(set: $tabardosJinetes to false)
+(set: $caballosJinetes to false)
+(set: $camarera to false)
+(set: $altercado to false)}
 &lt;==&gt;
 La mañana era fría y la luz aún no despuntaba, cuando Efrom ya estaba vestido y dispuesto a cumplir con sus tareas como cada día.
 
@@ -93,80 +179,73 @@ Pero Efrom había vivido en su propia piel que eso había que ganarselo cada dí
 
 
 
-[[» Continuar|Prologo2]]</tw-passagedata><tw-passagedata pid="6" name="Prologo2" tags="" position="527,57" size="100,100">
+[[» Continuar|Prologo2]]</tw-passagedata><tw-passagedata pid="5" name="Prologo2" tags="" position="527,56" size="100,100">
 &lt;==&gt;
-Cuando sus botas pisarón el polvo de las calles, Efrom ya había trazado el curso de acción. Portaba la hachuela colgando del cinto, cruzando su ancho pecho una cuerda de cañamo para cargar las ramas a la espalda y al hombro una vasija de gran tamaño para traer el agua.
+(t8n: &quot;dissolve&quot;)+(transition-time: 1s) [Cuando sus botas pisarón el polvo de las calles, Efrom ya había trazado el curso de acción. Portaba la hachuela colgando del cinto, cruzando su ancho pecho una cuerda de cañamo, que le ayudaría cargar las ramas a su espalda más adelante, y al hombro una vasija de gran tamaño para traer el agua.
 
-Parecía ir cómodo y cualquier que lo viera diría que parecía sencillo cargar con todo aquello, pero el sabía llegar hasta este momento había supuesto muchos días donde había tenido que ir y venir al bosque dos y tres veces ante la imposibilidad de cargar con todo aquello.
+Parecía ir cómodo y cualquiera que lo viera diría que parecía sencillo cargar con todo aquello, pero el sabía que llegar hasta este momento había supuesto muchos días donde había tenido que ir y venir al bosque dos y tres veces ante la imposibilidad de cargar con todo aquello.
 
-Pero con el paso del tiempo había crecido. Desde que llegara a vivir con Byön su cuerpo se había desarrollado hasta alcanzar la fuerza y destreza suficiente para acometer todas sus tareas de una sola vez, puesto que solo así había tiempo suficiente para que el herrero dispusiera de su tiempo para enseñarle.
+Pero con el paso del tiempo había crecido y desde que llegara a vivir con Byön su cuerpo se había desarrollado hasta alcanzar la fuerza y destreza suficiente para acometer todas sus tareas de una sola vez. Solo así  tendría un hueco en su jornada, suficiente para que el herrero dispusiera de su tiempo para enseñarle.]
 
 
-[[» Continuar|Prólogo3]]</tw-passagedata><tw-passagedata pid="7" name="Prólogo3" tags="" position="708,55" size="100,100">
+[[» Continuar|Prólogo3]]</tw-passagedata><tw-passagedata pid="6" name="Prólogo3" tags="" position="708,55" size="100,100">
 &lt;==&gt;
 Sus pasos firmes y raudos se abrían paso entre los primeros arboles del bosque, esquivando raices y piedras que con la tenúe luz del amanecer apenas eran visibles, pero él ya no necesitaba verlas para saber que estaban ahí.
 
-Mientras tanto su mente se llenaba de recuerdos de años atrás cuando,cogido de la mano de su hermana pequeña Railä, llegó en plena noche a la choza del herrero y vió por primera vez la gran y oscura barba de este. No consigue recordar que sucedió aquella noche, solo que Byön cuidaría de ellos y así ha cumplido durante la última decana.
+Mientras tanto, su mente se llenaba de recuerdos de años atrás cuando, cogido de la mano de su hermana pequeña Railä, llegó en plena noche a la choza del herrero y vió por primera vez la gran y oscura barba de este. No era capaz de recordar nada más de lo sucedido aquella noche, solo que Byön cuidaría de ellos. Así había sido desde entonces, hace ya una decana ya.
 
-Ahora que ya casí es considerado un adulto de pleno derecho con casi dieciseis primaveras, los recuerdos de esa noche siguen siendo igual de esquivos aunque reviva el momento cada mañana de camino al bosque.
+Ahora que ya casí es considerado un adulto de pleno derecho con casi dieciseis primaveras, los recuerdos de esa noche siguen siendo igual de esquivos aunque revivía ese instante cada mañana de camino al bosque.
 
 
-[[» Continuar|Prologo4]]</tw-passagedata><tw-passagedata pid="8" name="Prologo4" tags="" position="868,62" size="100,100">
+[[» Continuar|Prologo4]]</tw-passagedata><tw-passagedata pid="7" name="Prologo4" tags="" position="868,62" size="100,100">
 &lt;==&gt;
-Cuando los primeros rayos del alba comenzaban a despuntar había llegado al claro donde todo estaba dispuesto para recolectar la madera. Ahora que la luz bañaba los troncos caídos del claro y con los primeros cantos de los pájaros, se prestó a cortar y recuperar todas las ramas con prestreza. En apenas un momento ya tenía dispuesta la leña en un atillo a su espalda y con paso vivo se encaminaba hacía el lago para llenar la tinaja antes de volver a la aldea.
+Cuando los primeros rayos del alba comenzaban a despuntar había llegado al claro donde recolectaba la madera. Ahora que la luz bañaba los troncos caídos del claro y con los primeros cantos de los pájaros, se dispuso a cortar y recuperar todas las ramas con prestreza. En apenas un rato ya tenía dispuesta la leña en un atillo a su espalda y con paso vivo se encaminaba hacía el lago para llenar la tinaja antes de volver a la aldea, el sudor perlaba su frente a pesar del ambiente frio de la mañana.
 
-Cuando apenas le restaban unos pasos del lago, se percató. 
+Cuando apenas le restaban unos pasos del lago, se percató.
 
 El bosque estaba en completo silencio, solo el ligero arrullo del agua se hacía notar. Aquello no era común, era un bosque lleno de vida, donde los pajaros llenaban las copas de los árboles y los pequeños animales comenzaban su rutina matutina en la busqueda de alimento. 
 
-La pausa fue breve, puesto que poco a poco los sonidos fueron llegando. Pero para su sorpresa, los sonidos distaban mucho de ser los propios del bosque. 
-El relincho de un caballo en la lejanía fue lo primero que consiguió distinguir. Luego lo siguieron los gritos. Una amalgama de ellos comenzaron a llegar. Algunos gritos eran roncos, otros agudos y cortos; todos se mezclaban en el aire pero algo si que era claro, su origen. Provenían de la aldea, algo estaba pasando allí esta mañana. 
+La pausa fue breve, puesto que poco a poco los sonidos fueron llegando.
 
-Normalmente la vida en la aldea comenza temprano, pero no con tanto ruido y menos con tantos gritos. Que debería hacer Efrom...
-
-
-[[» Volver con paso raudo a la aldea y comprobar que sucede|RegresoAldea]]
-[[» Completar sus tareas recogiendo el agua del lago antes de volver|RecogeAgua]]</tw-passagedata><tw-passagedata pid="9" name="RegresoAldea" tags="" position="1044,222" size="100,100">
+[[» Continuar|Prologo5]]</tw-passagedata><tw-passagedata pid="8" name="RegresoAldea" tags="" position="1046,222" size="100,100">
 &lt;==&gt;
-Conforme Efrom avanza por el bosque de vuelta a la aldea, los gritos van desapareciendo a la par que aumenta el ritmo de sus pasos. Pero de repente, el sonido de cascos de caballos del camino cercano le sacan del nerviosismo que se ha apoderado de él. Un grupo de jinetes parece que se aleja de la aldea a paso ligero.
+Conforme Efrom avanza por el bosque de vuelta a la aldea, los gritos van desapareciendo a la par que aumenta el ritmo de sus pasos. 
+
+Repentinamente, el sonido de unos cascos de caballos del camino cercano le sacan del nerviosismo que se ha apoderado de él. 
+Un grupo de jinetes parece que se aleja de la aldea al galope.
 
 
 (unless: $tinaja)[[» Corre a cortarles el paso|Interceptar]]
 [[» Buscar el camino para intentar ver a los jinetes|Vigilar]]
-[[» Ignorar a los jinetes y dirigirse hacia la aldea|VolverAldea]]</tw-passagedata><tw-passagedata pid="10" name="RecogeAgua" tags="" position="1042,64" size="100,100">
+[[» Ignorar a los jinetes y dirigirse hacia la aldea|VolverAldea]]</tw-passagedata><tw-passagedata pid="9" name="RecogeAgua" tags="" position="1224,67" size="100,100">
 &lt;==&gt;
 Aceleradamente, se acuclilla junto al lago para llenar la tinaja como había hecho cientos de veces. Pero de fondo no dejaba de oir los gritos y el jaleo provinientes de la aldea, cada vez se hacían más patentes en el ambiente. Algo pasaba en la aldea y no parecía ser bueno.
 
 Tras acabar de llena la tinaja se encamina rapidamente hacia la aldea.
 (set:$tinaja to true)
-
-
-[[» Volver a la aldea|RegresoAldea]]</tw-passagedata><tw-passagedata pid="11" name="Interceptar" tags="" position="892,373" size="100,100">
+[[» Volver a la aldea|RegresoAldea]]</tw-passagedata><tw-passagedata pid="10" name="Interceptar" tags="" position="817,233" size="100,100">
 &lt;==&gt;
-Efrom oye el sonido de los caballos a gran velocidad alejandose de la aldea y corre lo más rápido que puede, pero va cargado con leña y una tinaja de agua que no le permiten moverse de forma adecuada. Aun así con obstinación  se esfuerza y concentra para no engancharse con las ramas, ni tropezar para llegar al camino a tiempo. Corre y corre, los escucha cerca pero no tiene claro donde está el camino...hasta que es demasiado tarde.
+Efrom oye el sonido de los caballos a gran velocidad alejandose de la aldea y corre lo más rápido que puede, pero va cargado con leña y una tinaja vacía que no le permiten moverse de la mejor forma. 
+Aun así, con obstinación, se concentra para no engancharse con las ramas, ni tropezar para llegar al camino a tiempo. 
 
-Se da cuenta que no ve el camino delante porque está justo en el. Apenas alcanza a girarse para ver a los jinetes cuando siente el tremendo impacto  en su hombro izquierdo que le hace salir despedido fuera del camino.
+Corre y corre, los escucha cerca pero no tiene claro donde está el camino...
 
-Sin aire en los pulmones, debe hacer un enorme esfuerzo por volver a respirar, como si sus pulmones hubieran olvidado como coger aire. Parece que hubiera pasado varios minutos intentando coger el aire pero cuando se da cuenta que aún siento el sonido de los cascos entiende que apenas acaba de caer al suelo. El atillo de madera a salido despedido y está desperdigado en el camino. Más allá, mientras se esfuerza por enfocar la mirada, las figuras de los jinetes se alejan y comienzan a desaparecer entre las ramas del bosque.
+(link: &quot;» Continuar&quot;)[...hasta que es demasiado tarde.
 
-Apenas ha podido verlos, grandes corceles castaños, tabardo bermellón y armadura es todo lo que crees recordar, pero....es posible que viera entre ellos el mandil de cuero y las blancas barbas de Byön. Todo ha sucedido muy deprisa y no sabría que pensar. 
+No fue capaz de ver el camino porque estaba justo en medio del mismo. Apenas comenzó a girarse para ver los jinetes cuando sientió el tremendo impacto en su hombro izquierdo, impacto que le hizo salir despedido fuera del camino.
 
-El golpe ha sido enorme, aunque por suerte comprueba que sus huesos siguen intactos y puede ponerse en pie.
-
-(set: $caballosJinetes to true)
-
-[[» Correr hacia la aldea|VolverAldea]]</tw-passagedata><tw-passagedata pid="12" name="Vigilar" tags="" position="1183,365" size="100,100">
+[[» Continuar|Interceptar2]]
+(set: $health to it - 25)
+(display: &quot;Update Health Bar&quot;)]</tw-passagedata><tw-passagedata pid="11" name="Vigilar" tags="" position="1183,365" size="100,100">
 &lt;==&gt;
 Efrom se abre paso a través de la maleza intentando localizar el camino. Sabe que el tiempo apremia pero no quiere precipitarse y permitir que los jinetes le vean.
 
 Entonces cuando intentaba encontrar el camino, los alcanza a ver. Parece que los jinetes iban muy deprisa y han pasado de largo más rápido de lo que esperaba así que apenas alcanza a ver lo que parece ser un grupo de jinetes de oscuras armaduras y pendones granate galopando sobre corceles castaños antes que desaparezcan en un recodo del camino, pero....es posible que viera entre ellos el mandil de cuero y las blancas barbas de Byön.
 
 Aún no sabe muy bien que ha sucedido en la aldea o si estos jinetes tienen algo que ver, pero será mejor que vuelva cuanto antes a la aldea.
-
-(set: $tabardosJinetes to true)
-(set: $caballosJinetes to true)
-
-[[» Correr hacia la aldea|VolverAldea]]</tw-passagedata><tw-passagedata pid="13" name="VolverAldea" tags="" position="1040,527" size="100,100">
+{(set: $tabardosJinetes to true)
+(set: $caballosJinetes to true)}
+[[» Correr hacia la aldea|VolverAldea]]</tw-passagedata><tw-passagedata pid="12" name="VolverAldea" tags="" position="1040,527" size="100,100">
 &lt;==&gt;
 Al acercarse a la aldea comienza a oir los llantos. El olor a quemado inunda el bosque y le hace pensar en lo peor antes incluso de poder ver la aldea.
 
@@ -177,19 +256,17 @@ Para cuando Efrom se recuperar del shock, distingue el humo negro y espeso que s
 Agua!!Agua!!!! 
 La forja está junto a la casa donde lleva viviendo todos estos años, si no se controla el fuego todo podría acabar ardiendo. Pero hay algo aún más acuciante que le asalta la mente.
 
-&quot;Donde está Byön?&quot; 
-&quot;Donde está Railä, su hermana?&quot;
+&quot;Donde estaba Byön?&quot; 
+&quot;Donde estaba Railä, su hermana?&quot;
 &quot;Como es que no están apagando el fuego de la forja? Se va a quemar la casa si nadie hace nada...&quot;-las palabras mueren en sus labios lentamente-.
 
 Sus pensamientos se detienen por un instante cuando se percata que no es la forja la que podría prender la casa, si no que la casa, ardiendo como una tea, es la que está prendiendo la forja.
 
 Tras recuperar la lucidez Efrom sabe que debe actuar con rapidez.
-
 (set: $ropajesQuemados to false)
-
 [[» Intenta apagar el fuego con unos ropajes cercanos|UsaRopajes]]
 [[» Trata de recuperar algo de valor de la forja antes que el fuego la consuma por completo|SaquearForja]]
-(if: $tinaja)[[» Utiliza la tinaja de agua para intentar sofocar las llamas|UsarTinaja]]</tw-passagedata><tw-passagedata pid="14" name="UsarTinaja" tags="" position="1277,709" size="100,100">
+(if: $tinaja)[[» Utiliza la tinaja de agua para intentar sofocar las llamas|UsarTinaja]]</tw-passagedata><tw-passagedata pid="13" name="UsarTinaja" tags="" position="1277,709" size="100,100">
 &lt;==&gt;
 Sin pensarlo, arroja gran parte del agua contra las primeras llamas que intentan consumir la edificación. Parece que el fuego remite por momentos, una pequeña satisfación dentro lo que hasta ahora está siendo un día aciago.
 
@@ -199,7 +276,7 @@ Gracias a sus esfuerzos y la ayuda de algunos parroquianos, consiguen contener e
 
 (set: $herreria to true)
 
-[[» Continuar|Pueblo]]</tw-passagedata><tw-passagedata pid="15" name="UsaRopajes" tags="" position="1065,710" size="100,100">
+[[» Continuar|Pueblo]]</tw-passagedata><tw-passagedata pid="14" name="UsaRopajes" tags="" position="1065,711" size="100,100">
 &lt;==&gt;
 Con ímpetu Efrom se arroja contra las llamas que comienzan a consumir lo que hasta ahora había sido la forja. Las paredes parecen haber prendido en al menos de sus cuatro costados. Con fuerza golpea las llamas una y otra vez con los telas una y otra vez intentando sofocar las llamas, pero es demasiado tarde, las llamas han alcanzado la techumbre y actuan con gran vurilencia devorando todo a su paso.
 
@@ -213,7 +290,7 @@ Hasta entonces no se había percatado, las telas medio calcinadas que tenía en 
 
 [[» Trata de recuperar algo de valor de la forja antes que el fuego la consuma por completo|SaquearForja]]
 [[» Contiene las llamas para que no se extiendan al resto de la aldea|AcabarIncendio]]
-(if: $tinaja)[[» Utiliza la tinaja con agua para intentar sofocar las llamas|UsarTinaja]]</tw-passagedata><tw-passagedata pid="16" name="SaquearForja" tags="" position="821,530" size="100,100">
+(if: $tinaja)[[» Utiliza la tinaja con agua para intentar sofocar las llamas|UsarTinaja]]</tw-passagedata><tw-passagedata pid="15" name="SaquearForja" tags="" position="821,530" size="100,100">
 &lt;==&gt;
 Entre las llamas y el humo que comienza a envolverlo todo, Efrom intenta recuperar algo de valor desesperadamente. El calor es cada vez mayor y el humo no deja ver con claridad. Intenta guiarse por los recuerdos que tiene de la noche anterior puesto que el humo apenas deja entrever nada. 
 
@@ -229,7 +306,7 @@ Por suerte para él, estaba allí. Lo asió con fuerza y consideró el continuar
 
 
 [[» Sigue buscando antes que todo se venga abajo|Quemado]]
-[[» Sale de la forja lo más rápido con únicamente el martillo en sus manos|Incendio]]</tw-passagedata><tw-passagedata pid="17" name="Quemado" tags="" position="754,720" size="100,100">
+[[» Sale de la forja lo más rápido con únicamente el martillo en sus manos|Incendio]]</tw-passagedata><tw-passagedata pid="16" name="Quemado" tags="" position="754,720" size="100,100">
 &lt;==&gt;
 Efrom intenta desesperadamente encontrar algo más de valor. Piensa e intenta recordar que podría quedar de valor en la forja, sus dedos se mueven los más rápido que pueden pero solo encuentran huecos vacíos donde debería haber herramientas y superficies que queman como el demonio.
 
@@ -239,8 +316,10 @@ Las llamas le envuelven lentamente, siente el calor como le envuelve por todas p
 Es el fin...
 
 (set:$martillo to false)
+(set:$health to 0)
+(display: &quot;Update Health Bar&quot;)
 
-[[» Continuar|Muerto]]</tw-passagedata><tw-passagedata pid="18" name="Incendio" tags="" position="884,721" size="100,100">
+[[» Continuar|Muerto]]</tw-passagedata><tw-passagedata pid="17" name="Incendio" tags="" position="884,721" size="100,100">
 &lt;==&gt;
 La forja está completamente ardiendo, las llamas han alcanzado el tejado. Para cuando Efrom se da cuenta, oye un fuerte crujido y un golpe sordo a su espalda.
 
@@ -250,11 +329,9 @@ Tampoco era consciente que todavía portaba en su mano el martillo de herrero, p
 
 (set: $martillo to true)
 
-[[» Continuar|AcabarIncendio]]</tw-passagedata><tw-passagedata pid="19" name="Muerto" tags="" position="760,869" size="100,100">
+[[» Continuar|AcabarIncendio]]</tw-passagedata><tw-passagedata pid="18" name="Muerto" tags="" position="428,972" size="100,100">
 &lt;==&gt;
-Has muerto!!! Pero quizá puedas intentar cambiar el destino de Efrom de alguna otra forma...
-
-
+Has muerto!!! Pero quizá puedas intentar cambiar el destino de alguna forma...
 
 
 
@@ -266,7 +343,7 @@ Has muerto!!! Pero quizá puedas intentar cambiar el destino de Efrom de alguna 
 
 
 [[» Volver a empezar|Prologo1]]
-[[» Menu|Menu]]</tw-passagedata><tw-passagedata pid="20" name="AcabarIncendio" tags="" position="1070,855" size="100,100">
+[[» Menu|Menu]]</tw-passagedata><tw-passagedata pid="19" name="AcabarIncendio" tags="" position="1071,855" size="100,100">
 &lt;==&gt;
 Tras grandes esfuerzos y con la colaboración de algunos aldeanos, el fuego es contenido. La forja se ha perdido, únicamente la estructura de piedra del horno y el yunque quedan para atestigar que allí antes existiera una edificación.
 
@@ -276,7 +353,7 @@ No queda rastro de las herramientas y demás enseres que antaño hubiera allí, 
 
 (set: $herreria to false)
 
-[[» Continuar|Pueblo]]</tw-passagedata><tw-passagedata pid="21" name="Pueblo" tags="" position="1075,996" size="100,100">
+[[» Continuar|Pueblo]]</tw-passagedata><tw-passagedata pid="20" name="Pueblo" tags="" position="1075,995" size="100,100">
 &lt;==&gt;
 Efrom se detiene a pensar por un momento. Ahora que el fuego no parece ser un problema debería centrarse en...
 
@@ -285,22 +362,24 @@ Efrom se detiene a pensar por un momento. Ahora que el fuego no parece ser un pr
 [[» Ayudar a restaurar el orden en la aldea|Calma tras la tormenta]]
 (unless: $preguntaAldeanos)[[» Preguntar a los aldeanos más cercanos sobre lo sucedido|PreguntaAldeanos]]
 (unless: $ayudaAldeanos)[[» Ayudar con los heridos|AyudaAldeanos]]
-(unless: not ($herreria and not $registrarHerreria))[[» Registrar la herrería para comprobar los daños en el interior|EncontrarMartillo]]</tw-passagedata><tw-passagedata pid="22" name="ComprobarRopajes" tags="" position="750,1037" size="100,100">(set: $preguntaRopajes to true) 
+(unless: not ($herreria and not $registrarHerreria))[[» Registrar la herrería para comprobar los daños en el interior|EncontrarMartillo]]</tw-passagedata><tw-passagedata pid="21" name="ComprobarRopajes" tags="" position="891,917" size="100,100">(set: $preguntaRopajes to true) 
 
 &lt;==&gt;
 
-Los ropajes están bastante sucios, muchas pisadas lo han maltratado, aunque algo si que puedes ver claro, su color es carmesí. Aunque no consigue identificar si es un pendón o parte de un tabardo, está claro que ha sido rasgado y bastante maltratado. No te suena haber visto este color antes en la aldea, así que seguramente pertenezca a los jinetes.
+Los ropajes están bastante sucios, muchas pisadas lo han maltratado, aunque algo si que puedes ver claro, su color es carmesí. 
 
-[[» Volver a las tareas|Pueblo]]</tw-passagedata><tw-passagedata pid="23" name="Calma tras la tormenta" tags="" position="1063,1180" size="100,100">
+Aunque no consigue identificar si es un pendón o parte de un tabardo, está claro que ha sido rasgado y bastante maltratado. No te suena haber visto este color antes en la aldea, así que seguramente pertenezca a los jinetes.
+
+[[» Volver a las tareas|Pueblo]]</tw-passagedata><tw-passagedata pid="22" name="Calma tras la tormenta" tags="" position="1202,1153" size="100,100">
 &lt;==&gt;
 La aldea en general no ha sufrido demasiados daños. Los intrusos parecen haberse cebado únicamente con la herrería y su dueño. Las gentes intentan volver a la normalidad, todos menos Efrom. 
 
-Muchos se acercan a consolarle, ofrecerle algo de comida y cobijo si lo deseas. Efrom sabe que toda esa gente le ayudaría a recuperar la normalidad, pero hay algo que no podrían hacer...ayudarte a encontrar a Railä y Byön. Son gente sencilla que no gustan en aventurarse fuera de su espacio conocido.
+Muchos se acercan a consolarle, ofrecerle algo de comida y cobijo si lo deseas. Efrom sabe que toda esa gente le ayudaría a recuperar la normalidad, pero hay algo que no podrían hacer...ayudarle a encontrar a Railä y Byön. Son gente sencilla que no gustan en aventurarse fuera de la aldea y sus alrededores.
 
 Los jinetes parece que se los han llevado a ambos, pero por qué y a donde son las dos preguntas que se arremolinan en la mente de Efrom sin encontrar una respuesta.
 
 
-[[Continuar|Memoria]]</tw-passagedata><tw-passagedata pid="24" name="PreguntaAldeanos" tags="" position="887,1136" size="100,100">(set: $preguntaAldeanos to true)
+(unless: $martillo)[[[» Continuar|Memoria]]](else:)[[[» Continuar|Martillo]]]</tw-passagedata><tw-passagedata pid="23" name="PreguntaAldeanos" tags="" position="883,1032" size="100,100">(set: $preguntaAldeanos to true)
 
 &lt;==&gt;
 Intentas obtener testimonios de los ocurrido y más importante aún, averiguar que ha sido de tu hermana Railä y del herrero Byön.
@@ -314,15 +393,15 @@ Eso es lo que piensa, que los jinetes también se la llevaran aunque en un rinc�
 Tras un momento de ensimismamiento Efrom se da cuenta que el crio se ha marchado y que hay más cosas por hacer.
 
 
-[[» Volver a otra tarea|Pueblo]]</tw-passagedata><tw-passagedata pid="25" name="AyudaAldeanos" tags="" position="1252,1144" size="100,100">(set: $ayudaAldeanos to true)
+[[» Volver a otra tarea|Pueblo]]</tw-passagedata><tw-passagedata pid="24" name="AyudaAldeanos" tags="" position="1034,1161" size="100,100">(set: $ayudaAldeanos to true)
 
 &lt;==&gt;
 Sin saber muy bien que hacer Efrom se acerca a los heridos e intenta prestarle su ayuda, acercando agua, vendas o simplemente sosteniendo su maltrechos cuerpos en algunos casos. Sus conocimientos son bastante escasos en este sentido así que pronto comienza a sentir que poco más puede hacer aparte de recadero.
 
-Tras lo que parece una eternidad algunos de los heridos son tratados y otros simplemente son cubiertos con mortajas funerarias. Igualmente tu presencia ha ayudado que muchos se mantuvieran conscientes y no se abandonaran.
+Tras lo que parece una eternidad algunos de los heridos son tratados y otros simplemente son cubiertos con mortajas funerarias. Igualmente su presencia ha ayudado a que muchos se mantuvieran conscientes y no se abandonaran.
 
 
-[[» Continuar haciendo tareas|Pueblo]]</tw-passagedata><tw-passagedata pid="26" name="EncontrarMartillo" tags="" position="1371,978" size="100,100">(set: $registrarHerreria to true)
+[[» Continuar haciendo tareas|Pueblo]]</tw-passagedata><tw-passagedata pid="25" name="EncontrarMartillo" tags="" position="878,1158" size="100,100">(set: $registrarHerreria to true)
 
 &lt;==&gt;
 Parece que la forja se ha salvado en su mayor parte y por tanto su interior se encuentra en buen estado. Te percatas que faltan muchas de las herramientas del herrero Byön y que en general parece haber sido saqueada a toda prisa, dejando las cosas por el suelo. No puede evitar pensar lo que diría Byön si viera su forja en este estado. 
@@ -330,53 +409,53 @@ Parece que la forja se ha salvado en su mayor parte y por tanto su interior se e
 (unless: $martillo)[Encuentras tu martillo de forjar tras una de las patas del banco de trabajo, allí donde siempre acostumbras a dejarlo. Por suerte, quienes saquearan la forja lo pasaron por alto.]
 
 
-[[» Volver a las tareas|Pueblo]]</tw-passagedata><tw-passagedata pid="27" name="Hearder" tags="header" position="91,273" size="100,100">(unless: (passage:)&#39;s tags contains &quot;no-header&quot;)[
+[[» Volver a las tareas|Pueblo]]</tw-passagedata><tw-passagedata pid="26" name="Hearder" tags="header" position="64,215" size="100,100">
 &lt;==&gt;
-(current-time:)	|	DESTINO FORJADO	|	(link: &quot;Menu Inicio&quot;)[
-	(set: $Choice to (confirm: &quot;¿Desea guardar la partida antes de salir al menú?&quot;))
-	(if: $Choice)[(save-game: &quot;Slot A&quot;)(go-to: &quot;Menu&quot;)]
-	(else:)[(go-to: &quot;Menu&quot;)]
-]	| (link: &quot;Cargar Partida&quot;)[
-	(set: $Choice to (confirm: &quot;Perderá el progreso actual. ¿Está seguro?&quot;))
-	(if: $Choice)[(load-game: &quot;Slot A&quot;)]]	(link: &quot;|	Guardar partida&quot;)[(save-game: &quot;Slot A&quot;)]&lt;hr&gt;]</tw-passagedata><tw-passagedata pid="28" name="Inicio|" tags="" position="89,423" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="29" name="Menu" tags="no-header menu no-footer" position="237,277" size="100,100">
-=&gt;&lt;=
-&lt;h1&gt;DESTINO FORJADO&lt;/h1&gt;
+(unless: (passage:)&#39;s tags contains &quot;no-header&quot;)[Salud &lt;div id=&quot;health-bar&quot; style=&quot;display: inline-block;&quot;&gt;\
+	&lt;div class=&quot;bar&quot;&gt;&lt;/div&gt;\
+&lt;/div&gt;]
+(display: &quot;Update Health Bar&quot;)</tw-passagedata><tw-passagedata pid="27" name="Sidebar" tags="footer" position="64,351" size="100,100">(append: ?SideBar)[
+&lt;img src=&quot;https://i.ibb.co/Wx0T9Z4/title01.png&quot; class=&quot;responsive&quot;&gt;
 
-
-[[NUEVA HISTORIA|Prologo1]]
-(link: &quot;CONTINUAR HISTORIA&quot;)[(load-game: &quot;Slot A&quot;)]</tw-passagedata><tw-passagedata pid="30" name="Footer" tags="footer" position="267,425" size="100,100">(unless: (passage:)&#39;s tags contains &quot;no-footer&quot;)[
+(unless: (passage:)&#39;s tags contains &quot;menu&quot;)[
+(link: &quot;Inicio &quot;)[
+(set: $Choice to (confirm: &quot;¿Desea guardar la partida antes de salir al menú?&quot;))
+(if: $Choice)[(save-game: &quot;Slot A&quot;)(go-to: &quot;Menu&quot;)]
+(else:)[(go-to: &quot;Menu&quot;)]]](else:)[(link: &quot;Comenzar &quot;)[(goto: &quot;Prologo&quot;)]]
+(link-repeat: &quot;Cargar &quot;)[(unless: (passage:)&#39;s tags contains &quot;menu&quot;)[(set: $Choice to (confirm: &quot;Perderá el progreso actual. ¿Está seguro?&quot;))
+(if: $Choice)[(load-game: &quot;Slot A&quot;)]](else:)[(load-game: &quot;Slot A&quot;)]]
+(unless: (passage:)&#39;s tags contains &quot;menu&quot;)[(link-repeat: &quot;Guardar &quot;)[(save-game: &quot;Slot A&quot;)]]
+]</tw-passagedata><tw-passagedata pid="28" name="Menu" tags="no-header menu no-footer" position="244,212" size="100,100">&lt;img src=&quot;https://i.ibb.co/JCMRrvk/Fragua03.png&quot; class=&quot;responsive&quot;&gt;</tw-passagedata><tw-passagedata pid="29" name="Foaaoter" tags="" position="216,473" size="100,100">(unless: (passage:)&#39;s tags contains &quot;no-footer&quot;)[
 
 
 &lt;hr&gt;
-]</tw-passagedata><tw-passagedata pid="31" name="Memoria" tags="" position="1466.6666666666667,1331.3333333333333" size="100,100">
+]</tw-passagedata><tw-passagedata pid="30" name="Memoria" tags="" position="1408,917" size="100,100">
 &lt;==&gt;
-
-Tras unas horas recogiendo la herrería y salvando las cosas que están en buen estado de la casa, Efrom se sienta junto al fuego que ha improvisado en la forja para calentarse.
+Tras unas horas recogiendo la herrería y salvando las cosas que están en buen estado de la casa, Efrom se sienta junto al fuego que había improvisado en la forja para calentarse.
 
 La mente de Efrom no paraba de revivir los últimos acontecimientos intentando encontrar algo que le muestre el camino a seguir.
 (if: $tabardosJinetes)[
-Intentar recordar con más ahínco el encuentro con los jinetes en el bosque, cuando estos salían a todo galope de la aldea. Sus oscuras armaduras de acero y tabardos granate. Eso es, tenían un blasón con la forma de un ave.
+Intenta recordar el encuentro con los jinetes en el bosque, cuando estos salían a todo galope de la aldea. Sus oscuras armaduras de acero y tabardos granate. Eso es, tenían un blasón con la forma de un ave.
 
 Quizá podrían ser del condado de Narth, al oeste. Recordaba que su emblema tenía una pluma o quizá fuera un ave? No estaba seguro. También podría pertenecer a la famosa banda mercenaría del Fenix, nunca los había visto pero había oido historias sobre ellos y se decía que su emblema era un ave escupiendo fuego y que se hospedaban en &quot;El Cruce&quot;, una posada al norte.]
 (if: $caballosJinetes)[
-Apenas pudo ver los corceles castaños de los jinetes, pero era patente que pertenecían a alguna cuadra todos ellos. Estában bien cuidados y vestían los mismo arreos. No hay demasiados lugares cerca que tengan una cuadra para un grupo tan numeroso de caballos: el cercano castillo de Welos al este, &quot;El cruce&quot; la gran posada en el camino del norte o el puesto avanzado del condado de Narth al oeste.]
+Apenas pudo ver los corceles castaños de los jinetes, pero era patente que pertenecían a alguna cuadra todos ellos. Estában bien cuidados y vestían los mismo arreos. 
+No hay demasiados lugares cerca que tengan una cuadra para un grupo tan numeroso de caballos: el cercano castillo de Welos al este, &quot;El cruce&quot; la gran posada en el camino del norte o el puesto avanzado del condado de Narth al oeste.]
 (unless: $ropajesQuemados)[
-Mientras no paraba de dar vueltas a los sucesos, su mirada estaba clavada en el suelo que le separaba del fuego. Pronto su mirada comenzó a enfocar nuevamente al dejar de divagar y entonces es cuando se percató que junto al fuego unos restos de tela desgarrada corrían peligro de prenderse. Los apartó con la ayuda de un palo de los que estaba usando para mantener el hogar encendido. La tela estirada dejaba ver lo que parecían ser algunos quemarrones, pero poco a poco una imagen se formó antes sus ojos. No eran manchas o quemados, el calor del fuego había hecho mella de diferente forma allí donde el tinte había calado en la tela original.
+Mientras no paraba de dar vueltas a los sucesos, su mirada estaba clavada en el suelo. Pronto su mirada comenzó a enfocar nuevamente al dejar de divagar y entonces es cuando se percató que junto a los rescoldos del incendio unos restos de tela desgarrada corrían peligro de prenderse. La tela estirada dejaba ver lo que parecían ser algunos quemarrones, pero poco a poco una imagen se formó antes sus ojos. No eran manchas o quemados, el calor del fuego había hecho mella de diferente forma allí donde el tinte había calado en la tela original.
 
 Un ave desplegada era visible ahora en lo que antes era un simple trozo de tela desgarrado y lleno de manchas. Al oeste, en Narth utilizaban un emblema similar aunque la guardía de la ciudad de Morfen al sur, también utilizaba un ave con forma muy similar.]
 
 Donde podría encontrar a estos jinetes y a las personas que más quiere...
 
-[[Continuar|Viajar]]
-</tw-passagedata><tw-passagedata pid="32" name="Viajar" tags="" position="1703.3333333333335,264.99999999999994" size="100,100">A donde quiere ir Efrom en este momento..
+[[» Continuar|Viajar]]</tw-passagedata><tw-passagedata pid="31" name="Viajar" tags="" position="1655,979" size="100,100">A donde quiere viajar Efrom en este momento..
 
 
 
-[[Puesto avanzado de Narth|Puesto avanzado Narth]]
-[[El Cruce|El Cruce]]
-[[Morfren|Morfren]]
-[[Welos|Wellos]]
-</tw-passagedata><tw-passagedata pid="33" name="Puesto avanzado Narth" tags="" position="2780.666666666667,322.66666666666674" size="100,100">
+[[» El Cruce|El Cruce]]
+[[» Wellos|Wellos - Previo]]
+[[» Narth|Narth]]
+[[» Morfren|Morfren - Puertas]]</tw-passagedata><tw-passagedata pid="32" name="Narth" tags="" position="2221,466" size="100,100">
 &lt;==&gt;
 
 Este puesto avanzado ha crecido mucho en la última década. Lo que inicialmente fuera un acuartelamiento militar con la función de cubrir la frontera, se ha reconvertido en una gran aldea altamente poblada. Con la caída de las fronteras por la unión de los antiguos reinos, ahora solo es  una muestra del poder e influencia que el condado posee.
@@ -387,35 +466,32 @@ El resto de las edificaciones representan muchas contrucciones que han ido creci
 
 Todo ello conforma una extensión aledaña al cuartel que casi duplica el espacio que este ocupa, aún así y a excepción de la capilla, el cuartel mantiene un buen distanciamiento del resto de edificaciones.
 
+[[» Visitar la capilla|Puesto avanzado Narth - Capilla]]
+[[» Entrar en una taverna|Puesto avanzado Narth - Taverna]]
+[[» Ir a las puertas del cuartel|Puesto avanzado Narth - Puertas Cuartel]]
+[[» Visitar la herrería|Puesto avanzado Narth - Herrería]]
 
-[[Viajar a otro lugar|Viajar]]
+[[» Viajar a otro lugar|Viajar]]</tw-passagedata><tw-passagedata pid="33" name="El Cruce" tags="" position="1880,1150" size="100,100">Como su propio nombre indica, la posada se encuentra en un enorme cruce de caminos. Algunos de los cuales son de muy reciente creación para confluir aquí.
 
-[[Visitar la capilla|Puesto avanzado Narth - Capilla]]
-[[Entrar en una taverna|Puesto avanzado Narth - Taverna]]
-[[Ir a las puertas del cuartel|Puesto avanzado Narth - Puertas Cuartel]]
-[[Visitar la herrería|Puesto avanzado Narth - Herrería]]</tw-passagedata><tw-passagedata pid="34" name="El Cruce" tags="" position="2103.3333333333335,620.9999999999998" size="100,100">Como su propio nombre indica, la posada se encuentra en un enorme cruce de caminos. Muchos de los mismos han sido creados recientemente para confluir aquí. 
+Muchos dirían que El Cruce es mucho más que una posada. Desde que se construyera ha crecido mucho y muy rápido, como pequeño puesto comercial, territorio neutral en muchas disputas y como hospedaje para los viajeros cansados.
 
-Muchos dirían que El Cruce es mucho más que una posada, casi podría considerarse una aldea. Desde que se construyera ha crecido mucho y muy rápido, como pequeño puesto comercial, territorio neutral en muchas disputas y como hospedaje para los viajeros cansados.
+El Cruce se conforma por varias estructuras, entre ellas las principales son un gran establo, el edificio principal donde se encuentra la taberna junto a gran parte de las habitaciones y una tercera edificación donde parte del personal se aloja además de otras habitaciones privadas y salas para viajeros de mejor estatus.
 
-El Cruce se conforma por varias estructuras, entre ellas las principales son un gran establo, el edificio principal donde se encuentra la taberna y una gran parte de las habitaciones y una tercera edificación donde parte del personal se aloja junto con otras habitaciones y salas para viajeros de mejor estatus.
+[[» Dirigirse a los establos|El Cruce - Establos]]
+[[» Entrar a la gran posada|El Cruce - Posada]]
+[[» Acercarse a la edificación |El Cruce - Establos]]
 
-
-[[Viajar a otro lugar|Viajar]]
-
-[[Dirigirse a los establos|El Cruce - Establos]]
-[[Entrar a la gran posada|El Cruce - Posada]]
-[[Acercarse a la edificación |El Cruce - Establos]]</tw-passagedata><tw-passagedata pid="35" name="Morfren" tags="" position="1798.0000000000002,624.9999999999999" size="100,100">Morfen, la ciudad portuaria de los comerciantes. Aquí no hay calle sin vendedor, ni vendedor sin calle. La ciudad tiene mucho trajin, gente que va de aquí para allá. Unos con grandes fardos de mercancias para vender y otros con bolsas repletas de monedas en busca de negocios o materias.
+[[» Viajar a otro lugar|Viajar]]</tw-passagedata><tw-passagedata pid="34" name="Morfren" tags="" position="1136,1388" size="100,100">Morfen, la ciudad portuaria de los comerciantes. Aquí no hay calle sin vendedor, ni vendedor sin calle. La ciudad tiene mucho trajin, gente que va de aquí para allá. Unos con grandes fardos de mercancias para vender y otros con bolsas repletas de monedas en busca de negocios o materias.
 
 A pesar de la cantidad de gente, se hace notar la ausencia de altercados y es que la guardia de la ciudad se puede ver pasar por las calles con mucha frecuencia. La guardia parecía bien pertrechada con armaduras pulidas y brillantes, tabardos de color arena y a sus espaldas unas capas con un bordado de tres plumas naranjas entre cruzadas.
 
 La actividad en la ciudad no cesa en ningún momento y hay mucho donde acudir...
 
+[[» Rondar por el bazar|Morfen - Bazar]]
+[[» Acercarse al consejo de la ciudad|Morfen - Consejo de la ciudad]]
+[[» Ir a los muelles|Morfen - Muelles]]
 
-[[Viajar a otro lugar|Viajar]]
-
-[[Rondar por el bazar|Morfen - Bazar]]
-[[Acercarse al consejo de la ciudad|Morfen - Consejo de la ciudad]]
-[[Ir a los muelles|Morfen - Muelles]]</tw-passagedata><tw-passagedata pid="36" name="Wellos" tags="" position="2455,624.6666666666665" size="100,100">El pequeño castillo de Wellos corona la cima de una colina al pie del gran Bosque de los Robles. A simple vista, denota que el castillo no está en un buen momento. Sus almenas casi podría decirse que asemejan la mellada boca de un anciano por lo irregulares y poco lustrosas que se muestran. Los techos de sus dos torres defensivas casi parecen que fueran a caerse en cualquier momento por la inclinación de sus vigas, incluso el torreón central muestra ventanales en mal estado y con algo de musgo que cubre algunas grandes extensiones.
+[[» Viajar a otro lugar|Viajar]]</tw-passagedata><tw-passagedata pid="35" name="Wellos" tags="" position="1652,441" size="100,100">El pequeño castillo de Wellos corona la cima de una colina al pie del gran Bosque de los Robles. A simple vista, denota que el castillo no está en un buen momento. Sus almenas casi podría decirse que asemejan la mellada boca de un anciano por lo irregulares y poco lustrosas que se muestran. Los techos de sus dos torres defensivas casi parecen que fueran a caerse en cualquier momento por la inclinación de sus vigas, incluso el torreón central muestra ventanales en mal estado y con algo de musgo que cubre algunas grandes extensiones.
 
 Sabes que aquí lleva viviendo muchos años (quizá varios cientos) una familia cuyos títulos ya nadie sabe a cuando se remontan, aunque está claro que debieron tener mejores momentos en el pasado.
 
@@ -423,12 +499,192 @@ A las afueras del castillo muchos edificios se congregan a los pies de sus mural
 
 Algunos puntos de interes que Efrom recaba durante un rato deambulando por la zona son...
 
-[[Viajar a otro lugar|Viajar]]
+[[» Ir al molino|Wellos - Molino]]
+[[» Frecuentar la posada|Wellos - Posada]]
+[[» Deambular por los barrios|Wellos - Barrios]]
+[[» Acercarse a la barbacana del castillo|Wellos - Castillo - Barbacana]]
 
-[[Ir al molino|Wellos - Molino]]
-[[Frecuentar la posada|Wellos - Posada]]
-[[Deambular por los barrios|Wellos - Barrios]]
-[[Acercarse a la barbacana del castillo|Wellos - Castillo - Barbacana]]</tw-passagedata><tw-passagedata pid="37" name="El Cruce - Establos" tags="" position="2028.3333333333335,770.9999999999998" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="38" name="El Cruce - Posada" tags="" position="2178.3333333333335,770.9999999999998" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="39" name="Morfen - Bazar" tags="" position="1647.0000000000002,774.9999999999999" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="40" name="Morfen - Consejo de la ciudad" tags="" position="1797.0000000000002,774.9999999999999" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="41" name="Morfen - Muelles" tags="" position="1908.3333333333335,774.9999999999999" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="42" name="Wellos - Molino" tags="" position="2304,774.6666666666665" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="43" name="Wellos - Posada" tags="" position="2454,774.6666666666665" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="44" name="Wellos - Barrios" tags="" position="2604,774.6666666666665" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="45" name="Visitar la capilla" tags="" position="2780.666666666667,472.66666666666674" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="46" name="Puesto avanzado Narth - Capilla" tags="" position="2555.666666666667,472.66666666666674" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="47" name="Puesto avanzado Narth - Taverna" tags="" position="2660.666666666667,472.66666666666674" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="48" name="Puesto avanzado Narth - Puertas Cuartel" tags="" position="2900.666666666667,472.66666666666674" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="49" name="Puesto avanzado Narth - Herrería" tags="" position="3005.666666666667,472.66666666666674" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="50" name="Wellos - Castillo - Barbacana" tags="" position="2484,774.6666666666665" size="100,100">Double-click this passage to edit it.</tw-passagedata></tw-storydata>
+[[» Viajar a otro lugar|Viajar]]</tw-passagedata><tw-passagedata pid="36" name="El Cruce - Establos" tags="" position="1738,1368" size="100,100">Los establos tienen un enorme tamaño. Grandes vigas de oscura madera soportan la estructura junto con infinidad de tablones que conforman sus paredes. El olor que rodea este tipo de edificios no se hace muy presente en este caso, este parece estar muy ciudado y limpio. 
+
+&quot;Podría ser que los caballos de los misteriosos jinetes estuvieran aquí&quot;, piensá Efrom, debería echar un vistazo.
+
+Cuando Efrom se acerca a la puerta de los establos para echar unvistazo, un mozo, no mayor que él mismo, sale presto para atenderle. Su rostro muestra una expresión dubitatiba y pregunta:
+
+-&quot;Buscas algo?&quot;
+
+-&quot;Quería echar un vistazo a las caballerizas, busco a unos jinetes que montaban unos caballos castaños&quot;, responde Efrom.
+
+El mozo, lo mira de arriba abajo sin parecer dar mucha credibilidad a lo escuchado.
+
+-&quot;No puedes pasar si no estás alojado ni tienes ningún animal a nuestro ciudado aquí. Marchaté y no nos hagas perder el tiempo&quot;.
+
+[[» Buscar en otro edificio|El Cruce]]
+[[» Rodear el establo|El Cruce - Establos alrededores]]</tw-passagedata><tw-passagedata pid="37" name="El Cruce - Posada" tags="" position="1924,948" size="100,100">
+&lt;==&gt;
+El edificio de la taberna estaba contruido con grandes troncos practicamente enteros como muros de la misma. Al menos en su entrada, puesto que denotaba que el edificio había crecido con el tiempo y mostradaba diferentes tecnicas en su construcción, como la segunda planta construida de forma más refinada o la pared de piedra que parecía contener lo que sería una enorme chimenea con un tiro de piedra igualmente grande
+
+Al acercarse a la puerta de la posada, se oía ajetreo en su interior. Voces de parroquianos alegres junto con una profunda voz que vociferaba bebidas y comidas, presumiblemente el tabernero, resonaban sin necesidad de abrir las puertas. Estaba claro que la taberna estaba concurrida.
+
+[[» Entrar|El Cruce - Posada Entrar]]
+[[» Buscar en otro lugar|El Cruce]]</tw-passagedata><tw-passagedata pid="38" name="Morfen - Bazar" tags="" position="982,1535" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="39" name="Morfen - Consejo de la ciudad" tags="" position="1135,1538" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="40" name="Morfen - Muelles" tags="" position="1301,1540" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="41" name="Wellos - Molino" tags="" position="1474,255" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="42" name="Wellos - Posada" tags="" position="1624,255" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="43" name="Wellos - Barrios" tags="" position="1919,248" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="44" name="Puesto avanzado Narth - Capilla" tags="" position="2404,708" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="45" name="Puesto avanzado Narth - Taverna" tags="" position="2402,536" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="46" name="Puesto avanzado Narth - Puertas Cuartel" tags="" position="2409,390" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="47" name="Puesto avanzado Narth - Herrería" tags="" position="2411,248" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="48" name="Wellos - Castillo - Barbacana" tags="" position="1774,252" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="49" name="Update Health Bar" tags="" position="64,476" size="100,100">(print: &quot;&lt;script&gt;DF.updateHeathBar(&quot; + (text: $maxHealth) + &quot;,&quot; + (text: $health) + &quot;);&quot;)</tw-passagedata><tw-passagedata pid="50" name="Prologo" tags="" position="193,39" size="100,100">
+&lt;==&gt;
+(t8n: &quot;dissolve&quot;) [Este es el comienzo de una historia que no podrás encontrar en libros ni manuescritos, una historia que todos han oido pero ninguno ha vivido. 
+
+Todos salvo tú.]
+
+[[» Continuar|Prologo1]]</tw-passagedata><tw-passagedata pid="51" name="Prologo5" tags="" position="1025,59" size="100,100">
+&lt;==&gt;
+Para su sorpresa, los sonidos distaban mucho de ser los propios del bosque.
+
+El relincho de un caballo en la lejanía fue lo primero que consiguió distinguir. Luego lo siguieron los gritos. Una amalgama de ellos comenzaron a llegar. 
+Algunos gritos eran roncos, otros agudos y cortos; todos se mezclaban en el aire pero todos tenían algo en común, su origen. 
+Provenían de la aldea, algo sucedía allí. 
+
+Normalmente la vida en la aldea comenzaba temprano, pero no con tanta algarabia y menos aún con gritos. Que debería hacer Efrom...
+
+
+[[» Volver con paso raudo a la aldea y comprobar que sucede|RegresoAldea]]
+[[» Completar sus tareas recogiendo el agua del lago antes de volver|RecogeAgua]]</tw-passagedata><tw-passagedata pid="52" name="Interceptar2" tags="" position="667,334" size="100,100">
+&lt;==&gt;
+Sin aire en los pulmones, debe hacer un enorme esfuerzo por volver a respirar, como si sus pulmones hubieran olvidado como coger aire. Parece que hubiera pasado varios minutos intentando coger el aire pero cuando se da cuenta que aún siente el sonido de los cascos entiende que apenas acaba de caer al suelo. El atillo de madera a salido despedido y está desperdigado en el camino. 
+
+Más allá, mientras se esfuerza por enfocar la mirada, las figuras de los jinetes se alejan y comienzan a desaparecer entre las ramas del bosque.
+
+[[» Continuar|Interceptar3]]</tw-passagedata><tw-passagedata pid="53" name="Interceptar3" tags="" position="862,398" size="100,100">Apenas ha podido verlos, grandes corceles castaños, tabardo bermellón y armadura es todo lo que cree recordar, pero....es posible que viera entre ellos el mandil de cuero y las blancas barbas de Byön. Todo ha sucedido muy deprisa y no sabría que pensar. 
+
+El golpe ha sido enorme, aunque por suerte comprueba que sus huesos siguen intactos y puede ponerse en pie.
+
+(set: $caballosJinetes to true)
+
+[[» Correr hacia la aldea|VolverAldea]]</tw-passagedata><tw-passagedata pid="54" name="Wellos - Previo" tags="" position="1416,593" size="100,100">
+&lt;==&gt;
+Efrom no había salido mucho de su aldea y nunca había transitado este camino, pero si que sabía que el comercio entre las comarcas era fluido y bien recibido por todos, por lo que era extraño no ver a ningún otro viajero en el camino.
+
+Casi a mitad de camino lo comprendió. Varios carromatos y viajeros se agolpaban en el camino y entre ellos un nutrido grupo de soldados mantenian una empalizada que cortaba el camino.
+
+Acercandose furtivamente, intentando pasar desapercibido entre el gentío allí reunido, consigó ver de forma clara a los soldados.
+
+Portaban tabardos ocre, quizá por la suciedad o lo ajados que parecían, y armaduras plateadas, que lucían sin lustro alguno y con algunas marcas de verdín.
+
+[[» Continuar|Wellos - Camino2]]</tw-passagedata><tw-passagedata pid="55" name="Wellos - Camino2" tags="" position="1560,598" size="100,100">Viajeros y soldados discutían acaloradamente, unos exigiendo derechos de paso y otros esgrimiendo sus lanzas para mantener las distancias. En un instante, un soldado con gran porte y mejor apariencia que el resto, se alzó a la empalizada y vociferó:
+
+&quot;El paso del condado de Wellos está cerrado. Nadie puede entrar ni salir hasta nueva orden. Dispersaos y volved por donde habéis venido si estímais vuestra vida&quot;.
+
+El paso está cortado, habrá que buscar en otra dirección. Solo esperaba que slos jinetes no hubieran pasado por allí.
+
+[[» Viajar a otro lugar|Viajar]]</tw-passagedata><tw-passagedata pid="56" name="Morfren - Puertas" tags="" position="1445,1261" size="100,100">El camino está bastante transitado. Muchas carretas y viajeros van y vienen, no es de extrañar puesto que por algo a la ciudad se la conoce como &quot;El Mercado del Norte&quot;.
+
+Lo que si fue más extraño es encontrar tanta vida fuera de las murallas de la ciudad. Infinidad de campamentos improvisados entre los carromatos llenaban la pradera que rodeaba la ciudad.
+
+Efromo había estado en Morfren antes y nunca había visto algo así. La ciudad bullían de actividad en su interior y todos los viajeros (y por encima de todo los comerciantes) eran bien recibidos. Pero las puertas de la ciudad, más altas que cualquier estructura de su aldea, estaban cerradas.
+
+Nadie respondía desde el interior de la ciudad y la mayoría de los guardías no prestaban atención al exterior, si no más bien al interior de la misma.
+
+[[Continuar|Morfren - Puertas y rumores]]</tw-passagedata><tw-passagedata pid="57" name="Morfren - Puertas y rumores" tags="" position="1594,1253" size="100,100">Tras deambular por el exterior y prestar atención a las conversaciones de los parroquianos y comerciantes escuchó a varios mercaderes de aspecto opulento:
+
+&quot;...está cerrada y así seguirá estando hasta que el resto del Consejo decida que es seguro o atrapen a los culpables...&quot;
+
+&quot;...dos miembros del Consejo han muerto y el resto teme sufrir el mismo destino...&quot;
+
+El Consejo regía la ciudad y estaba formado por los mercaderes más influyentes y ricos, por lo que siempre había intrigas y maquinaciones para obtener un puesto en el mismo. Pero jamás se había derramado sangre (de forma intencionada y/o mortal).
+
+&quot;Maldición&quot;, masculló Efrom. Poco podría averiguar aquí si no conseguía entrar en la ciudad ni comunicarse con la guardía.
+
+[[» Viajar a otro lugar|Viajar]]</tw-passagedata><tw-passagedata pid="58" name="El Cruce - Establos alrededores" tags="" position="1865,1371" size="100,100">Efrom se aleja de la entrada del establo y cuando observa que el mozo entra al mismo, gira y comienza a rodear el establo intentando encontrar la forma de entrar al mismo o ver su interior.
+
+Debido al tamaño del establo le es imposible encontrar la forma de mirar por los respiraderos cercanos al tejado que posee el edificio.
+
+Pero parece que hay otra opción, un portón trasero entreabierto.
+
+[[» Investigar el portón|El Cruce - Establos portón trasero]]
+[[» Buscar en otro edificio|El Cruce]]</tw-passagedata><tw-passagedata pid="59" name="El Cruce - Establos portón trasero" tags="" position="1993,1370" size="100,100">
+&lt;==&gt;
+El portón trasero se muestra entre abierto. Acercandose con cuidado, Efrom intentar echar un vistazo al interior del enorme edificio...
+
+Se asoma al portón e intenta aclimatar su vista al interior del eficio, puesto que el interior está bastante oscuro.
+
+Apenas consigue distinguir el interior, grandes montones de heno, algunas herramientas y, a ambos lados del pasillo central, multitud de puertas de las cuadras.
+
+(link: &quot;» Continuar&quot;)[Pero antes de poder reaccionar, el portón se abre de forma violenta golpeándolo en el rostro con un golpe sordo.
+
+El golpe parece que le ha hecho sangrar por la nariz ligeramente y le deja sentado frente al portón.
+
+En medio de la arcada abierta, y con los brazos en jarras, se encuentra el mozo de cuadra con el que se encontró en la entrada principal, aunque en actitud hostil.
+
+-&quot;¡¡Te dije que no puedes entrar maldita sea!! Marchate si no quieres que avise en la posada&quot;, y acto seguido cierra el portón con fuerza.
+
+Parece que Efrom tendrá que buscaren otro lugar...
+
+[[» Buscar en otro lugar|El Cruce]]
+(set: $health to it - 10)
+(display: &quot;Update Health Bar&quot;)]</tw-passagedata><tw-passagedata pid="60" name="Martillo" tags="" position="1200,994" size="100,100">
+&lt;==&gt;
+No podía dejar de pensar en la de veces que antaño había dicho a su hermana que dejara de seguirlo. Ella siempre lo estaba siguiendo y observando. 
+
+Ya desde bien pequeña lo había demostrado. Nada impedía a Railä ir tras su hermano, daba igual lo oscuro o peligroso que pareciera, si Efrom estaba allí, ella también.
+
+Tuvieron que pasar unos años hasta que ella comprendió que no podía seguir así. Nadie (que no fuera su hermano) tuvo que decirselo, tal como era la sombra de Efrom, dejó de serlo.
+
+Ahora Efrom deseaba poder ver la cara de su hermana. Él sabía que aquella cría había quedado atrás hace tiempo. Ahora se había convertido en una muchacha alta, casi tanto como él, ágil e inteligente además de bastante agraciada pero con un caracter afilado (algunos muchachos en la aldea habían acabado siendo humillados por intentar menospreciarla).
+
+
+[[» Continuar|Martillo2]]</tw-passagedata><tw-passagedata pid="61" name="Martillo2" tags="" position="1265,853" size="100,100">
+&lt;==&gt;
+Divagando en sus pensamientos, un cercano destello llamó la atención de Efrom. Algo entre unos restos de la forja había llamado su atención. Parecía ser un cilindro metálico sobresaliendo de entre los escombros.
+
+El tacto le sorprendió. El metal retenía el calor en su interior. La calidez del material fue una caricía agradable, un sentimiento que se extendió al tirar de él.
+
+
+(link: &quot;» Continuar&quot;)[¡¡¡Era su martillo de herrero!!!
+
+A pesar que muchas de la herramientas había quedado inservibles por el fuego o habían desaparecido, estaba claro que no habían visto su martillo ,que siempre debaja trás una pata del banco de trabajo. El fuego no había sido capaz de hacer mella alguna en el metal, unicamente había tomado un color negro que antes no tenía.
+
+[[» Continuar|Memoria]]]</tw-passagedata><tw-passagedata pid="62" name="El Cruce - Posada Entrar" tags="" position="2099,954" size="100,100">Al entrar Efrom se encontró con una estancia enorme. Un gran hogar de piedra en uno de sus laterales presidía la estancía. Opuesto al hogar una enorme barra de madera de unas quince varas bullía de trabajo. 
+
+Varias personas entraban y salían de la misma cargando bandejas de comida y bebida. Entre ellos un enorme hombre de tez morena voceaba a diestro y sinistro intentando poner orden y dirigir el servicio, Etniö el regente de &quot;El cruce&quot;.
+
+Entre el hogar y la barra, una decena de grandes mesas redondas estaban pobladas por algunos viajeros y huéspedes. La mayoría comían y bebían, aunque algunos, por el rubor de sus mejillas, únicamente lo segundo.
+
+[[» Hablar con Etniö el posadero|El Cruce - Posada Etniö]]
+(unless: $camarera)[[[» Hablar con un sirviente|El Cruce - Posada sirviente]]]</tw-passagedata><tw-passagedata pid="63" name="El Cruce - Posada Etniö" tags="" position="2310,953" size="100,100">
+&lt;==&gt;
+Efrom se dirige al tabernero con la intención de obtener algo de información. Con una amplia sonrisa Etniö lo recibe y con buenos modales le pregunta si querrá comer, beber y/o alojamiento.
+
+No puede evitar recordar que apenas tiene unas monedas encima. La urgencia por salir tras sus seres queridos raptados por los jinetes, junto con los destrozos y el caos provocados por el fuego no le dejaron pertrecharse mejor.
+
+Parece que el tabernero es capaz de leerle sus pensamiento puesto que su sonrisa inicial se torna en una mueca de impaciencia. Al instante su semblante vuelve a su habitual sonrisa.
+
+-&quot;No voy a dejar que pases frio, puedes calentarte junto al fuego, pero no me hagas perder el tiempo ni molestes a mis clientes entendido&quot;, dice con su vozarrón y guiñando un ojo a Efrom.
+
+Dicho esto el posadero vuelve diligente a su faena.
+
+[[» Continuar|El Cruce - Posada Entrar]]</tw-passagedata><tw-passagedata pid="64" name="El Cruce - Posada sirviente" tags="" position="2338,1211" size="100,100">
+&lt;==&gt;
+(unless: $altercado)[Con la idea de consultar al servicio Efrom se acerca a un camarero a preguntar por los misterios jinetes. Da la descripción más detallada que puede e implora su ayuda para encontrar a su familia.
+
+(link: &quot;» Continuar&quot;)[Desafortunadamente, el trabajor no parece recordar nada que pueda ayudarle.  Igualmente dice que con la infinidad de personas que pasan por aquí quien podría saber. Son muchos trabajadores y distintos turnos puesto que la taberna nunca deja de dar servicio.
+(set: $altercado to true)
+[[» Continuar|El Cruce - Posada Entrar]]]
+(else:)[Esta vez Efrom consigue la atención de una camarera morena de amplia sonrisa que no parece mucho mayor que él. 
+
+La muchaca se muestra nerviosa y no deja de mirar a su alrededor junto con alguna furtiva mirada a Etniö. Posiblemente teme que el tabernero la reprenda por no estar trabajando, pero igualmente la muchacha coloca bajo su brazo la bandeja que acaba de servir en una mesa cercana e intenta prestar atención a Efrom.
+
+Tras escuchar detenidamente el relato, coloca una mano en su brazo co muestra de consuelo. A continuación lamenta decir que no recuerda haber visto a un grupo de viajeros como el que busca...
+
+(link: &quot;» Continuar&quot;)[...pero antes que pudiera continuar hablando la muchacha suelta un grito ahogado mientras se gira sobresaltada y sale corriendo hacia la cocina. Al instante un cliente con el rostro congestionado y que se encontraba a espaldas de la chica le dice:
+
+-&quot;Vamos muchacha no seas tímida, seguro que no seré el primero con lo linda que eres&quot;.
+
+[[» Continuar|El Cruce - Posada Sinverguenza]]]]</tw-passagedata><tw-passagedata pid="65" name="El Cruce - Posada Sinverguenza" tags="" position="2128,1205" size="100,100">
+&lt;==&gt;
+Efrom se encuentra frente al individuo. Este no paraba de reir y regocigarse en lo sucedido junto al resto que están sentados a su mesa.
+
+No era complicado suponer lo sucedido. Efrom no pudo evitar pensar en Railä y que alguien le hiciera algo así. Casi sin darse cuenta su mano ya estaba agarrando el mango del martillo que colgaba de su cinturón.
+
+Pero entonces miró a Etniö. Este no parecía haberse percatado del altercado, al igual que la mayoría de los allí reunidos. Que debía hacer...
+
+[[» Dejar pasar el altercado|El Cruce - Posada Entrar]]
+[[» Enfrentarse al sinvergüenza|El Cruce - Posada Honor]]</tw-passagedata><tw-passagedata pid="66" name="El Cruce - Posada Honor" tags="" position="2134,1370" size="100,100">Double-click this passage to edit it.</tw-passagedata></tw-storydata>
 
 <script title="Twine engine code" data-main="harlowe">"use strict";function _defineProperty(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}function _toConsumableArray(e){if(Array.isArray(e)){for(var t=0,n=Array(e.length);t<e.length;t++)n[t]=e[t];return n}return Array.from(e)}var _slicedToArray=function(){function e(e,t){var n=[],r=!0,i=!1,o=void 0;try{for(var a,s=e[Symbol.iterator]();!(r=(a=s.next()).done)&&(n.push(a.value),!t||n.length!==t);r=!0);}catch(e){i=!0,o=e}finally{try{!r&&s.return&&s.return()}finally{if(i)throw o}}return n}return function(t,n){if(Array.isArray(t))return t;if(Symbol.iterator in Object(t))return e(t,n);throw new TypeError("Invalid attempt to destructure non-iterable instance")}}(),_typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e};!function(){/**
  * @license almond 0.3.3 Copyright jQuery Foundation and other contributors.
