@@ -148,7 +148,7 @@ window.DF.updateHeathBar = function (maxHealth, health) {
 	outer.data('total', maxHealth);
 	outer.data('value', health);
 	inner.css('width', barWidth + "%");
-};</script><tw-tag name="papper" color="gray"></tw-tag><tw-passagedata pid="1" name="Start" tags="no-header no-footer" position="55,52" size="100,100">(set: $maxHealth to 100)
+};</script><tw-tag name="papper" color="gray"></tw-tag><tw-passagedata pid="1" name="Start" tags="no-header no-footer" position="67,82" size="100,100">(set: $maxHealth to 100)
 (set: $health to $maxHealth)
 
 (go-to: &quot;Menu&quot;)</tw-passagedata><tw-passagedata pid="2" name="Variables" tags="" position="60,704" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="3" name="historia" tags="" position="63,591" size="100,100">&lt;!-- The following health change will automatically be applied to the Health Bar due to the footer tagged passage. --&gt;
@@ -526,7 +526,7 @@ El edificio de la taberna estaba contruido con grandes troncos practicamente ent
 Al acercarse a la puerta de la posada, se oía ajetreo en su interior. Voces de parroquianos alegres junto con una profunda voz que vociferaba bebidas y comidas, presumiblemente el tabernero, resonaban sin necesidad de abrir las puertas. Estaba claro que la taberna estaba concurrida.
 (set: $posada to true)
 [[» Entrar|El Cruce - Posada interior]]
-[[» Buscar en otro lugar|El Cruce]]</tw-passagedata><tw-passagedata pid="38" name="Morfen - Bazar" tags="" position="982,1535" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="39" name="Morfen - Consejo de la ciudad" tags="" position="1135,1538" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="40" name="Morfen - Muelles" tags="" position="1301,1540" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="41" name="Wellos - Molino" tags="" position="1474,255" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="42" name="Wellos - Posada" tags="" position="1624,255" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="43" name="Wellos - Barrios" tags="" position="1919,248" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="44" name="Puesto avanzado Narth - Capilla" tags="" position="2229,654" size="100,100">Una enorme capilla se alzaba sepada del resto de edificios que conformaban la aldea. Quizá era el edificio más cercano al cuartel y posiblemente también el siguiente en antiguedad, pero no por ello en mal estado.
+[[» Buscar en otro lugar|El Cruce]]</tw-passagedata><tw-passagedata pid="38" name="Morfen - Bazar" tags="" position="982,1535" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="39" name="Morfen - Consejo de la ciudad" tags="" position="1135,1538" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="40" name="Morfen - Muelles" tags="" position="1301,1540" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="41" name="Wellos - Molino" tags="" position="1474,255" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="42" name="Wellos - Posada" tags="" position="1624,255" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="43" name="Wellos - Barrios" tags="" position="1919,248" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="44" name="Puesto avanzado Narth - Capilla" tags="" position="2202,721" size="100,100">Una enorme capilla se alzaba sepada del resto de edificios que conformaban la aldea. Quizá era el edificio más cercano al cuartel y posiblemente también el siguiente en antiguedad, pero no por ello en mal estado.
 
 El exterior era bastante sobrio, líneas rectas y practicas sin incluir ningún tipo de adorno más allá de una simple cruz de piedra sobre la arcada de las puertas de entrada.
 
@@ -543,7 +543,7 @@ Observar la entrada del local un momento se percata que muchos entran y salen de
 
 -&quot;A donde vas muchacho? Quieres ser un hombre?&quot;.
 
-[[» Continuar|Puesto avanzado Narth - Lupanar]]
+(unless: $enganho)[[[» Continuar|Puesto avanzado Narth - Lupanar]]](else:)[[[» Entrar condecisión|Puesto avanzado Narth - Lupanar interior]]]
 [[» Ir a otro lugar|Narth - Aldea]]]</tw-passagedata><tw-passagedata pid="46" name="Puesto avanzado Narth - Puertas Cuartel" tags="" position="2044,325" size="100,100">
 &lt;==&gt;
 El cuartel parece estar muy bien mantenido, incluso sus muros se muestran limpios y libre de plantas a su alrededor. Soldados asoman por encima de las murallas y se asoman desde ambas torres del complejo. 
@@ -553,17 +553,19 @@ El rastrillo está bajado y dos pares de guardías están apostados allí, una d
 Los soldados muestran pendones granate en su lanzas con un ave en ellos, armaduras de acero bruñido impolutas que deslumbran con el reflejo cualquier fuente de luz.
 
 [[» Hablar con los guardías|Puesto avanzado Narth - Guardias]]
-[[» Visitar otro lugar|Narth - Aldea]]</tw-passagedata><tw-passagedata pid="47" name="Puesto avanzado Narth - Herrería" tags="" position="2554,397" size="100,100">
+[[» Visitar otro lugar|Narth - Aldea]]</tw-passagedata><tw-passagedata pid="47" name="Puesto avanzado Narth - Herrería" tags="" position="2575,359" size="100,100">
 &lt;==&gt;
-La herrería sigue un patrón muy familiar para Efrom, adosada a una casa y abierta hacia la calle casi al completo en uno de sus laterales.
+La herrería seguía un patrón muy familiar para Efrom, adosada a una casa y abierta hacia la calle casi al completo en uno de sus laterales.
 
-En su interior un enjuto herrero se afana en las labores de la forja. Su canoso pelo y su cuerpo curtido por el tiempo no restan fuerza a alguien que ha pasado la vida golpeando el yunque, sus brazos son testigos inamobibles de ello.
+(unless: $enganho)[En su interior un enjuto herrero se afana en las labores de la forja. Su canoso pelo y su cuerpo curtido por el tiempo no restan fuerza a alguien que ha pasado la vida golpeando el yunque, sus brazos son testigos inamobibles de ello.
 
 El enjuto herrero asiente al ver como se acerca Efrom. Su mirada no pierde detalle y sonrie al ver el martillo en el cinto.
 
 -&quot;¿Que desea joven? ¿Necesita alguno de mis servicios?&quot;, dice el herrero dirigiendose al joven que tiene delante.
 
 [[» Hablar con el herrero|Puesto avanzado Narth - Herrero]]
+[[» Ir a otro lugar|Narth - Aldea]]](else:)[La herrería se encontraba desatendida, el herrero no se mostraba por ninguna parte. A Efrom le extrañó que la puerta estuviera abierta mientras el herrero no estuviera allí.
+
 [[» Ir a otro lugar|Narth - Aldea]]]</tw-passagedata><tw-passagedata pid="48" name="Wellos - Castillo - Barbacana" tags="" position="1774,252" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="49" name="Update Health Bar" tags="" position="64,476" size="100,100">(print: &quot;&lt;script&gt;DF.updateHeathBar(&quot; + (text: $maxHealth) + &quot;,&quot; + (text: $health) + &quot;);&quot;)</tw-passagedata><tw-passagedata pid="50" name="Prologo" tags="" position="369,190" size="100,100">
 &lt;==&gt;
 (t8n: &quot;dissolve&quot;) [Este es el comienzo de una historia que no podrás encontrar en libros ni manuescritos, una historia que todos han oido pero ninguno ha vivido. 
@@ -786,7 +788,7 @@ Efrom casi no se percata del beso hasta que siente el frio en su mejilla ligeram
 -&quot;No te preocupes, se que tienes prisa pero debo advertirte, que los hombres a los que buscas no parecían ser muy amistosos. Apenas estuvieron aquí un par de horas. Suficientes para descansar del caballo, comer algo y retomar la marcha.&quot;
 
 [[» Continuar|El Cruce - Pistas]]
-[[» Esperar a la noche y salir a lomos del caballo|Campamento Oculto]]</tw-passagedata><tw-passagedata pid="71" name="El Cruce - Establos pista Railä" tags="" position="1500,1674" size="100,100">
+[[» Esperar a la noche y salir a lomos del caballo|Bosque Oscuro]]</tw-passagedata><tw-passagedata pid="71" name="El Cruce - Establos pista Railä" tags="" position="1500,1674" size="100,100">
 &lt;==&gt;
 -&quot;Alta, casi tanto como yo. Ojos de un azul grisaceo y rostro serio. Larga cabellera morena, quizá recogida en una única trenza lateral...&quot;, Efrom comienza a describir a su hermana al muchacho.
 
@@ -817,7 +819,7 @@ Igualmente el muchacho permitió a Efrom entrar a las cuadras y ver los caballos
 El mozo le prometió dejarle llevarse el animal en la noche
 Efrom miraba al animal con un fuego en los ojos que antes no poseía.
 
-[[» Esperar a la noche y salir a lomos del caballo|Campamento Oculto]]
+[[» Esperar a la noche y salir a lomos del caballo|Bosque Oscuro]]
 [[» Dirigirse a los establos|El Cruce - Pistas]]]</tw-passagedata><tw-passagedata pid="74" name="El Cruce - Pistas" tags="" position="1644,1528" size="100,100">Que debería preguntar Efrom...
 
 [[» Darle las gracias y marcharse|El Cruce]]
@@ -834,7 +836,13 @@ Efrom abatido le agradece la ayuda abandona los establos.
 -&quot;No sé hacia donde partieron, pero si puedo decirte donde fueron herrados esos caballos. Uno de los caballos se quedó aquí por problemas con una herradura. Yo mismo lo traté y ví el sello del artesano que se la puso. El herrero del puesto de Narth, Yorhun. Seguro que el puede decirte algo más, mucha suerte, Martillo&quot;, se despide el mozo dejando a Efrom pensativo en cual será su próximo paso mientras sostiene en sus manos la herradura.
 (set: $herradura to true)
 
-[[» Dirigirse a los establos|El Cruce - Pistas]]]</tw-passagedata><tw-passagedata pid="76" name="Campamento Oculto" tags="" position="2432,846" size="100,100">Double-click this passage to edit it.</tw-passagedata><tw-passagedata pid="77" name="Narth - Aldea" tags="" position="2215,481" size="100,100">
+[[» Dirigirse a los establos|El Cruce - Pistas]]]</tw-passagedata><tw-passagedata pid="76" name="Bosque Oscuro" tags="" position="2624,994" size="100,100">
+&lt;==&gt;
+El bosque donde se internó el corcel tras dejar los caminos estaba sumido en una densa oscuridad. En la mayor parte del camino apenas era posible ver el cielo, la luna o las estrellas. 
+
+Efrom no era capaz de encontrar una referencia para saber en que dirección iba y no podía arriesgarse a detener la cabalgada. Así que solo le quedaba confiar en que el equino le llevaría hasta su ansiado destino, lo que pasara luego solo los dioses lo sabían.
+
+[[» Continuar|Bosque Oscuro - Campamento]]</tw-passagedata><tw-passagedata pid="77" name="Narth - Aldea" tags="" position="2215,481" size="100,100">
 &lt;==&gt;
 Donde debería ir Efrom...
 
@@ -844,7 +852,7 @@ Donde debería ir Efrom...
 [[» Entrar en una taberna|Puesto avanzado Narth - Taberna]]
 [[» Ir a las puertas del cuartel|Puesto avanzado Narth - Puertas Cuartel]]
 [[» Visitar la herrería|Puesto avanzado Narth - Herrería]]
-
+(if: $yorhum)[[[» Ir a la cuadra tras la herrería|Puesto avanzado Narth - Herrería Cuadra]]]
 [[» Viajar a otro lugar|Viajar]]</tw-passagedata><tw-passagedata pid="78" name="Puesto avanzado Narth - Guardias" tags="" position="2190,262" size="100,100">
 &lt;==&gt;
 Cuando Efrom llega hasta la barbacana los soldados apostado fuera se cuadran aún más y le preguntan educadamente si necesita algo.
@@ -856,7 +864,7 @@ Ante las dudas del muchacho los soldadosse muestran tranquilos, aunque sin mucha
 
 Maldición, poco podría averiguar sin delatarse o advertir a aquellos soldados, dado el caso de que fueran los que andaba buscando.
 
-[[» Visitar otro lugar|Narth - Aldea]]</tw-passagedata><tw-passagedata pid="79" name="Puesto avanzado Narth - Lupanar" tags="" position="2416,597" size="100,100">
+[[» Visitar otro lugar|Narth - Aldea]]</tw-passagedata><tw-passagedata pid="79" name="Puesto avanzado Narth - Lupanar" tags="" position="2398,654" size="100,100">
 &lt;==&gt;
 Las preguntas cogieron por sorpresa a Efrom. No sabía que responder, pero un instante después pudo ver algo asomar solor un instante tras las cortinas que estaban a la espalda del bigardo. Una muchacha se acercó a decirle algo al grandullón, aunque Efrom no lo escuchó,se había quedado absorto.
 
@@ -919,7 +927,7 @@ Antes que pudiera dar un paso, el herrero lo agarró por el brazo más fuerza de
 [[» Continuar hablando|Puesto avanzado Narth - Herrero]]
 [[» Darle las gracias y marchar|Narth - Aldea]]](else:)[Efrom comienza a hablar sobre los jinetes al herrero. Como eran sus armaduras negras y bien pulidas y los corceles castaños bien ataviados. Yorhun se toma un momento antes de contestar.
 
--&quot;Dices que portaban armaduras negras relucientes y que con ellos viajaba Byön, con su mandil. Pues creo que luna te sonrie, no hace muchos días que un cliente de la aldea, algo aficionado al lupanar, me contó que había visto por la noche a un grupo muy similar y que junto ellos iba una muchacha joven de cabellos castaños y explendida sonrisa. Pudo oir que se preparaban para partir sin demora alguna hacia Wellos&quot;.
+-&quot;Dices que portaban armaduras negras relucientes y que con ellos viajaba Byön, con su mandil. Pues creo que luna te sonrie. No hace muchos días un cliente de la aldea, algo aficionado al lupanar, me contó que había visto por la noche salir del local a un grupo muy similar. Con ellos iba una joven muchacha de cabellos castaños y explendida sonrisa. Pudo oir que se los llevaban sin demora hacia Wellos&quot;.
 
 -&quot;Aquella muchacha debía ser Railä&quot;, se decía Efrom a si mismo para converncerse. Agradeció al herrero aquella información.
 (set: $enganho to true)
@@ -957,7 +965,144 @@ La vida es un prestamo que hacen los dioses. Está llena de posibles destinos y 
 Tienta de nuevo al destino y presta atención, nunca sabremos donde encontrar la mano amiga que nos guie.
 
 [[» Volver a empezar|Prologo]]
-[[» Menu|Menu]]</tw-passagedata></tw-storydata>
+[[» Menu|Menu]]</tw-passagedata><tw-passagedata pid="89" name="Puesto avanzado Narth - Lupanar interior" tags="" position="2534,653" size="100,100">
+&lt;==&gt;
+Efrom no sabía muy bien que iba a hacer, pero no podía marcharse si podía obtener información sobre el paradero de sus seres queridos. Al instante y casi sin percatarse había atravesado las cortinas. 
+
+Se encontró en una sala aprentemente pequeña y con una luz tan tenue que no alcanzaba a iluminar todos los rincones de la misma. Tuvo que reprimir el pudor que somaba a sus mejillas a cada momento, puesto que allá donde mirase era capaz de ver cosas que iban más allá de la decencía y los valores con los que se había criado.
+
+(link: &quot;» Continuar&quot;)[Pero sabía que estaba allí por una razón de peso y no llevado por los placeres carnales. 
+
+No paraba de repetirlo una y otra vez, pero no para sobreponerse a la tentación, sino para mantener la mirada firme al hablar con las personas que se cruzaba en aquel lugar de moral distraída.
+
+No fue sencillo, ni tampoco barato intentar conseguir algo de información. Cada palabra allí tenía un precio, pero no estaba dispuesto a dejar escapar la oportunidad.
+
+[[» Continuar|Puesto avanzado Narth - Lupanar Shae]]]</tw-passagedata><tw-passagedata pid="90" name="Puesto avanzado Narth - Lupanar Shae" tags="" position="2533,803" size="100,100">
+&lt;==&gt;
+Para muchos de los clientes allí presentes el tiempo habría pasado veloz, para Efrom fue una eternidad. Pero al fin tenía algo, le había costado las últimas monedas que portaba encima pero le habían dado un nombre Shäe. Ella seguro que sabría lo que andaba buscando. 
+
+Frente a ella se encontraba en una apartado creado por unos biombos. Mujer de piel bronceada y ojos almendrados que clamaban peligro y sugerían placer.
+
+(link: &quot;» Continuar&quot;)[-&quot;Se quienes son a los que buscas, no son trigo limpio. Sino fuera por lo peligrosos que son, aquí no serían bien recibidos. Pero eso no te interesa..&quot;, sonrió.-&quot;Si quieres saber como encontrarlos, deberías...deberías decir que vas a darme a cambio&quot;. 
+
+La sonrisa en su rostro se hizo tan amplia como sensual. Efrom no tenía más monedas para ella y se quedó pensativo sin saber que responder. Entonces la muchacha señaló su martillo.
+-&quot;Con eso bastará, estoy segura que podré contar con este apuesto caballero para ayudar a una dama en apuros&quot;, al acabar la frase no pudo contener una risita por la ironía.
+
+[[» Continuar|Puesto avanzado Narth - Lupanar Shae2]]</tw-passagedata><tw-passagedata pid="91" name="Puesto avanzado Narth - Lupanar Shae2" tags="" position="2394,802" size="100,100">Solo pudo asentir ante aquella extraña petición. o sabía muy bien que podría necesitar de él, pero no estaba en posición de negociar los terminos puesto que no tenía nada que ofrecer. 
+
+Efromo asintió a Shäe mientras se llevaba una mano al pecho para reafirmar su compromiso. Ella sonrió satisfecha.
+
+(link: &quot;» Continuar&quot;)[-&quot;Deberías ir a la cuadra tras la herrería, allí estoy segura que encontrarás un caballo que será capaz de conducirte hasta ellos y su campamento. Esos mercenarios se traen muchos negocios con el herrero y este se encarga de herrar sus caballos&quot;.
+
+Los ojos de Efrom no pudieron disimular su sorpresa, le había engañado por completo. Yorhun no solo sabía quienes eran esos hombres sino que tenía trato con ellos y sabía donde se encontraban.
+
+Por un momento olvidó sus modales y salío corriendo del lupanar, dejando a Shäe tras de sí, no podía perder un instante.
+(set: $yorhum to true)
+[[» Salir de allí|Narth - Aldea]]]</tw-passagedata><tw-passagedata pid="92" name="Puesto avanzado Narth - Herrería Cuadra" tags="" position="1914,389" size="100,100">
+&lt;==&gt;
+Tal como había dicho Shäe allí estaba la cuadra y en su interior había un corcel castaño sin apeos ni silla que se mostraba bastante inquieto.
+
+La estructura era lo suficientemente grande como para albergar media docena de caballos de forma cómoda, pero Efrom solo tenía ojos para el caballo y su mente estaba muy lejos, junto a sus seres queridos desaparecidos.
+
+(link: &quot;» Continuar&quot;)[Sin dudarlo, abrió las puertas de la cuadra y saltó sobre el lomo del corcel mientras se aferraba a las crines para intentar no caer. El caballo relinchó y se encabritó, pero Efrom estaba decidido y nada podría haberlo caer.
+
+El caballo apoyó las patas al ver que no era capaz de tirar al jinete y salío al galope por la puerta de la cuadra. Nada más dejar atrás el puesto de Narth el corcel se internó en el bosque sin disminuir el ritmo.
+
+[[» Continuar|Bosque Oscuro]]]</tw-passagedata><tw-passagedata pid="93" name="Bosque Oscuro - Campamento" tags="" position="2747,990" size="100,100">
+&lt;==&gt;
+Tras lo que pareció una eternidad, el caballo redujo la marcha y caminaba al paso hasta que se detuvo y comenzó a pastar en lo que parecía ser un pequeño prado de unas 20 varas de lado.
+
+Efrom se percató que cerca había otros dos caballos castaños y varias cuerdas que delimitaban el recinto. Su destino lo había alcanzado.
+
+(link: &quot;» Desmontar y explorar los alrededores&quot;)[Comenzó a mirar en todas direcciones en busca de algo que le indicara si allí había alguién más. Pero la vista no le dió esa información, fueron unos golpes sordos, los que alertaron a Efrom y marcaron su rumbo. 
+
+Unos cincuenta pasos más adelante y acercándose con cautela vió como dos caballeros queportaban petos negros y relucientes junto a tabardos granate se turnaban en patear a un figura atada junto a un árbol, que portaba un mandil de cuero que reconocía incluso en la oscuridad de aquel bosque.
+
+¡¡¡Era Byön!!!
+
+[[» Avalanzarse sobre ellos enarbolando su martillo|Bosque Oscuro - Campamento Ataque]]
+[[» Contenerse y acercarse más a los soldados|Bosque Oscuro - Campamento Sorpresa]]]</tw-passagedata><tw-passagedata pid="94" name="Bosque Oscuro - Campamento Ataque" tags="" position="2823,1141" size="100,100">
+&lt;==&gt;
+Imbuido por una rabía primitiva Efrom se arroja sobre los soldados con el martillo alzado por encima de su cabeza. Los soldados sorprendidos intentan recomponerse a la aparición del muchacho foribundo y desenvainan sus espadas.
+
+(link: &quot;» Continuar&quot;)[La carga de Efrom lleva tanto ímpetú que acobarda a uno de ellos que da un paso atrás, dejando a su compañero al frente. 
+Efrom con su martillo descarga un potente golpe descenten en dirección a la cabeza del soldado más cercano y este consigue interponer su espada para detenerlo.
+
+(link: &quot;» Continuar&quot;)[Pero el soldado a penas tuvo tiempo para darse cuenta de su error, cuando la fuerza del golpe concentrada en el cabezal del martillo partió la hoja de la espada como si fuera de madera. La trayectoría descendente del martillo continuó su curso impactando en el rostro del soldado que sin articular palabra alguna quedó inerte al instante.
+
+Efrom tuvo que esforzarse para recuperar el martillo y aprestarse para hacer frente al soldado restante y que extrañamente no lo había atacado.
+
+[[» Continuar|Bosque Oscuro - Campamento Ataque2]]]]</tw-passagedata><tw-passagedata pid="95" name="Bosque Oscuro - Campamento Sorpresa" tags="" position="2850,869" size="100,100">
+&lt;==&gt;
+Efrom contuvo su rabia y se acercó más aún a los soldados, la sangre palpitaba con fuerza por todo su cuerpo con cada nuevo golpe que esos desalmados propinaban a Byön.
+
+Entonces el herrero se percató de su presencia y pudo mostrar un atisbo de sonrisa en su magullado rostro. Los soldados contrariados se detuvieron por un instante.
+
+(link: &quot;» Continuar&quot;)[Antes que pudieran comprender lo que sucedía un fuerte y sonoro gong se escuchó en el bosque.
+
+Uno de los soldados salió despedido y dió contra al árbol por la fuerza del impacto recibido. Tras caer al suelo, no volvió a moverse. Su casco estaba visiblemente abollado y el cuello en un angulo grotesto.
+
+[[» Continuar|Bosque Oscuro - Campamento Sorpresa2]]]</tw-passagedata><tw-passagedata pid="96" name="Bosque Oscuro - Campamento Ataque2" tags="" position="2982,1145" size="100,100">
+&lt;==&gt;
+Ese fue el instante que aprovechó el soldado. Efrom no pudo apartar la mirada mientras observaba como la espada del soldado se hundía en la carne. Aquel ataque vil y deshonroso había perforado el cuero y posiblemente lo había atravesado. 
+
+El rostro desemcajado junto al grito de dolor confirmaban la gravedad de la herida.
+
+(link: &quot;» Continuar&quot;)[El traicionero soldado saco su espada y la sangre comenzó a manar de forma incontrolable a través de la herida. 
+
+Se recostó contra el árbol mientras las cuerdas que lo ataban no le permitían alcanzar la herida abierta en su pecho.
+
+[[» Continuar|Bosque Oscuro - Campamento Ataque3]]]</tw-passagedata><tw-passagedata pid="97" name="Bosque Oscuro - Campamento Ataque3" tags="" position="3116,1145" size="100,100">
+&lt;==&gt;
+Efrom no fue capaz de reaccionar, solo vió como el mandil de cuero se tenía de sangre.
+
+El soldado le había lanzado una estocada dirigida al estómago, pero pudo apartarse a tiempo gracias al grito de Byön que se desangraba al pie del cercano árbol.
+
+El empuje puesto en la estocada junto con un tropiezo con el cuerpo de su compañero caído, hicieron que el enemigo perdiera el equilibrio, momento que Efrom aprovechó para lanzar un golpe contra la espalda expuesta. 
+
+Fue ensordecedor el tremendo gong metálico al golpear el martillo contra el peto, pero fue estremecedor el crujir de huesos que lo siguió. El soldado quedó boca abajo, temblando con violencia entre estertores hasta que se quedó inmóvil.
+
+[[» Continuar|Bosque Oscuro - Campamento Byön]]</tw-passagedata><tw-passagedata pid="98" name="Bosque Oscuro - Campamento Byön" tags="" position="3311,1023" size="100,100">
+&lt;==&gt;
+Las lágrimas casi no dejaban ver a Efrom. Apoyado en el árbol Byön se desangraba sin poder hacer nada al respecto.
+
+Las grandes manos del herrero tomaron las del muchacho torpemente mientras intentaba calmarlo.
+
+-&quot;No te preocupes muchacho, este era mi destino, cof cof. Doy gracias a los dioses por alcanzarlo sabiendo que tú y Railä no habéis caído en su manos&quot;. Su hermana, su hermana estaba viva y ¡además no había sido capturada!
+
+(link: &quot;» Continuar&quot;)[-&quot;Escuchame Efrom, debes marcharte, volverán de un momento a otro. Pero antes prométeme que buscarás a Railä, Juntos os protegeréis y podréis hacerle frente&quot;, durante un instante Byön parece desorientado, pero retoma la palabra.
+
+-&quot;Debéis embarcar, al otro lado encontraréis vuestra otra mitad&quot;, con un hilo de voz continua:&quot;el sol es leal y os llevará al otro lado si le muestras tu oscuridad...&quot;, susurra mientras acaricia con los dedos la cabeza de tu martillo antes de perder la fuerza y cerrar los ojos.
+
+[[» Continuar|Fin capítulo 1]]]</tw-passagedata><tw-passagedata pid="99" name="Bosque Oscuro - Campamento Sorpresa2" tags="" position="3014,877" size="100,100">
+&lt;==&gt;
+El camarada que queda en pie temblaba visiblemente, aun con dificultad consiguío desenvainar su espada y presentar batalla.
+
+Efrom no se detuvo arremetió contra el soldado una y otra vez con su furia, pero el guerrero parecía desenvolverse bien. 
+
+El cansancio comenzó a hacer mella en los músculos del muchacho, cada vez se movía más despacio y sus golpes eran menos precisos. Ponía toda su rabía en cada golpe pero el ágil guerrero tomaba distancia y luego contraatacaba.
+
+(link: &quot;» Continuar&quot;)[En apenas un minuto, las tornas del combate habían cambiado y era Efrom quién se defendía con toda su voluntad. El guerrero ganaba terreno rápidamente, hasta que en un instante consiguió desequilibrar a Efrom y lanzaró una estocada su cabeza antes que pudiera levantarse.
+
+El sonido de metal contra metal los sorprendió a ambos. Una espada sostenida torpemente por Byön interceptó el golpe mortal. Pero el momento de triunfo fue efímero, el soldado cambió de objetivo y comenzó a atacar a Byön con ahínco mientras Efrom recuperaba su martillo y se levantaba del suelo.
+
+[[» Continuar|Bosque Oscuro - Campamento Sorpresa3]]]</tw-passagedata><tw-passagedata pid="100" name="Bosque Oscuro - Campamento Sorpresa3" tags="" position="3168,883" size="100,100">
+&lt;==&gt;
+Intentando recuperar el aliento tras el golpe contra el suelo, Efrom buscaba frenético el martillo a su alrededor, cercano podía oir el entrechocar de los aceros
+
+Para cuando consiguío incorporarse, martillo en mano, presenció el golpe mortal. El enemigo le estaba dando la espalda y pudo ver como la punta de la espada de Byön sobresalía casi medio palmo bañada en sangre.
+
+Cuando el cuerpo calló al suelo aún tenía la espada atravesándolo. Efrom levantó la mirada hacía Byön esbozando una sonrisa.
+
+(link: &quot;» Continuar&quot;)[Byön estaba de pie, con la respiración entrecortada y ambas manos aferrando la empuñadura. El que fuera su padre adoptivo le dedicó entonces una amplia sonrisa sincera pero fugaz.
+
+Entonces trastabilló unos pasos hacía atrás hasta topar con el tronco al que había estado atado hace un instante. Gracias al golpe contra el tronco pudo liberar la hoja que lo atravesaba tirando a su vez de la empuñadura con ambas manos. 
+
+La hoja cayo al suelo del bosque, pero Efrom no la oyó. Solo se acercó al herrero para ayudarle a recostarse contra el tronco mientras de la herida brotaba la sangre sin medida.
+
+[[» Continuar|Bosque Oscuro - Campamento Byön]]]</tw-passagedata><tw-passagedata pid="101" name="Fin capítulo 1" tags="" position="3454,1024" size="100,100">
+&lt;==&gt;
+&lt;h1&gt;FIN CAPITULO&lt;/h1&gt;</tw-passagedata></tw-storydata>
 
 <script title="Twine engine code" data-main="harlowe">"use strict";function _defineProperty(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}function _toConsumableArray(e){if(Array.isArray(e)){for(var t=0,n=Array(e.length);t<e.length;t++)n[t]=e[t];return n}return Array.from(e)}var _slicedToArray=function(){function e(e,t){var n=[],r=!0,i=!1,o=void 0;try{for(var a,s=e[Symbol.iterator]();!(r=(a=s.next()).done)&&(n.push(a.value),!t||n.length!==t);r=!0);}catch(e){i=!0,o=e}finally{try{!r&&s.return&&s.return()}finally{if(i)throw o}}return n}return function(t,n){if(Array.isArray(t))return t;if(Symbol.iterator in Object(t))return e(t,n);throw new TypeError("Invalid attempt to destructure non-iterable instance")}}(),_typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e};!function(){/**
  * @license almond 0.3.3 Copyright jQuery Foundation and other contributors.
